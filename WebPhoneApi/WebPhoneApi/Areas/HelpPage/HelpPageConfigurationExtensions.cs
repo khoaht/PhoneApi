@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
-using WebPhoneApi.Areas.HelpPage.Models;
+using TeleGoApi.Areas.HelpPage.Models;
 
-namespace WebPhoneApi.Areas.HelpPage
+namespace TeleGoApi.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

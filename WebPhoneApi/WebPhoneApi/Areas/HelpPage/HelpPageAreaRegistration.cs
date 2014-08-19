@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace WebPhoneApi.Areas.HelpPage
+namespace TeleGoApi.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

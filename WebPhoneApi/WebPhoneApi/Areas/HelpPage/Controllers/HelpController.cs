@@ -1,9 +1,9 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using WebPhoneApi.Areas.HelpPage.Models;
+using TeleGoApi.Areas.HelpPage.Models;
 
-namespace WebPhoneApi.Areas.HelpPage.Controllers
+namespace TeleGoApi.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace WebPhoneApi.Controllers
+namespace TeleGoApi.Controllers
 {
     public class PhoneController : ApiController
     {
@@ -16,6 +16,8 @@ namespace WebPhoneApi.Controllers
             //2. HHAExchange return a Coordinator1 Name
             //3. Query Extension Number of Coordinator in TeleGo DB
             //4. Return Extension to PBX
+
+            return string.Empty;
         }
     }
 }

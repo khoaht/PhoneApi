@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebPhoneApi.Controllers
+namespace TeleGoApi.Controllers
 {
     public class HomeController : Controller
     {

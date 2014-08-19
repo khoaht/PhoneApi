@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace WebPhoneApi.Areas.HelpPage
+namespace TeleGoApi.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

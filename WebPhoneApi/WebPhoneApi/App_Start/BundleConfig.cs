@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WebPhoneApi
+namespace TeleGoApi
 {
     public class BundleConfig
     {

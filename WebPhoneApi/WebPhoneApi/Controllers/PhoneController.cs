@@ -1,4 +1,5 @@
 ﻿using Infrastructure;
+
 using Infrastructure.HhaExchange;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,7 @@ namespace TeleGoApi.Controllers
             {
                 //TODO:
                 //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret
-                Infrastructure.HhaExchange.SearchAPIRestClient client = new Infrastructure.HhaExchange.SearchAPIRestClient();
+                SearchAPIRestClient client = new SearchAPIRestClient();
 
                 CallerIDLookupResponse restResult = client.GetCallerDataByCallerID(AppName, AppSecret, AppKey, callerId, Filter);
                 //2. HHAExchange return a Coordinator1 Name

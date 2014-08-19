@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPhoneApi", "WebPhoneApi\WebPhoneApi.csproj", "{E910160A-0F36-4BC0-807D-A003BFC9B7C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{5ABDDC7C-0AF6-4215-9716-EB3A429DFFBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{2900D7C6-6021-4850-9606-E5262117F8FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{988AEA8E-5896-4ED5-9A2C-8159344BF412}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E910160A-0F36-4BC0-807D-A003BFC9B7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E910160A-0F36-4BC0-807D-A003BFC9B7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E910160A-0F36-4BC0-807D-A003BFC9B7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E910160A-0F36-4BC0-807D-A003BFC9B7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{988AEA8E-5896-4ED5-9A2C-8159344BF412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{988AEA8E-5896-4ED5-9A2C-8159344BF412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{988AEA8E-5896-4ED5-9A2C-8159344BF412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{988AEA8E-5896-4ED5-9A2C-8159344BF412}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{988AEA8E-5896-4ED5-9A2C-8159344BF412} = {5ABDDC7C-0AF6-4215-9716-EB3A429DFFBE}
+		{E910160A-0F36-4BC0-807D-A003BFC9B7C2} = {2900D7C6-6021-4850-9606-E5262117F8FF}
+	EndGlobalSection
+EndGlobal

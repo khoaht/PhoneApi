@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\HhaExchange\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -74,9 +75,6 @@
     <WCFMetadataStorage Include="Service References\HhaExchange\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\HhaExchange\SearchAPIRest.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\HhaExchange\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +85,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HhaExchange\SearchAPIRest.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

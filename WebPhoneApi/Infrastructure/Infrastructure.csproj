@@ -30,9 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,6 +49,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Account.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Customer.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Domain.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Log.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\OfficeLocation.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\PhoneNumber.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\PhoneNumberProvider.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Priority.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Role.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Server.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Status.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\sysdiagram.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\TeleGoContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TeleGoContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\TeleGoContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TeleGoContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\TeleGoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\ToDo.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\User.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\UserClaim.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\UserLogin.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\UserRegistrationToken.cs">
+      <DependentUpon>TeleGoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\HhaExchange\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -53,6 +127,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EntityDeploy Include="Domain\TeleGoContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TeleGoContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Domain\TeleGoContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TeleGoContext.edmx</DependentUpon>
+      <LastGenOutput>TeleGoContext.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Domain\TeleGoContext.edmx.diagram">
+      <DependentUpon>TeleGoContext.edmx</DependentUpon>
+    </None>
+    <None Include="Domain\TeleGoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TeleGoModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
     <None Include="Service References\HhaExchange\Infrastructure.HhaExchange.CallerIDLookupResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -87,6 +178,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

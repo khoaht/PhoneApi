@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f563b165-44d7-4376-8ea4-86d1d8c1a4e4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b7469a46-3447-435c-be28-bc2bfb648d57" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,8 +22,8 @@
     <MetadataSource Address="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SearchAPI.wsdl" MetadataType="Wsdl" ID="246dd47f-962f-4e2e-aa9f-8383e70b8555" SourceId="1" SourceUrl="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx?wsdl" />
-    <MetadataFile FileName="SearchAPI.disco" MetadataType="Disco" ID="660a5edb-4117-4e26-8733-0b2d22b522a0" SourceId="1" SourceUrl="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx?disco" />
+    <MetadataFile FileName="SearchAPI.wsdl" MetadataType="Wsdl" ID="6d675366-0a9b-494c-97db-1e21ad65b19c" SourceId="1" SourceUrl="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx?wsdl" />
+    <MetadataFile FileName="SearchAPI.disco" MetadataType="Disco" ID="61e64470-d2b1-4b4d-bc13-76b98b5846a1" SourceId="1" SourceUrl="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

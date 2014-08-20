@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public enum Status
+    public struct StatusCode
     {
-        Success,
-        Failure
+        public const string Success="Success";
+        public const string Failure = "Failure";
     }
+
     public class Constants
     {
     }

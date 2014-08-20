@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://www.hhaexchange.com/apis/hhaws.search" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://www.hhaexchange.com/apis/hhaws.search" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://www.hhaexchange.com/apis/hhaws.search">
+      <s:element name="GetCallerDataByCallerID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="appName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appSecret" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="callerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filter" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCallerDataByCallerIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCallerDataByCallerIDResult" type="tns:CallerIDLookupResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CallerIDLookupResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LookupData" type="tns:ArrayOfItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseResponse" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:Result" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Result">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorInfo" type="tns:ErrorInfo" />
+        </s:sequence>
+        <s:attribute name="Status" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ErrorInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Item">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Coordinator1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Coordinator2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Coordinator3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Services" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrimaryContract" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Branch" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Team" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrimaryLanguage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nurse" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Service" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCallerDataByCallerIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCallerDataByCallerID" />
+  </wsdl:message>
+  <wsdl:message name="GetCallerDataByCallerIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCallerDataByCallerIDResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SearchAPISoap">
+    <wsdl:operation name="GetCallerDataByCallerID">
+      <wsdl:input message="tns:GetCallerDataByCallerIDSoapIn" />
+      <wsdl:output message="tns:GetCallerDataByCallerIDSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SearchAPISoap" type="tns:SearchAPISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCallerDataByCallerID">
+      <soap:operation soapAction="https://www.hhaexchange.com/apis/hhaws.search/GetCallerDataByCallerID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SearchAPISoap12" type="tns:SearchAPISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCallerDataByCallerID">
+      <soap12:operation soapAction="https://www.hhaexchange.com/apis/hhaws.search/GetCallerDataByCallerID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SearchAPI">
+    <wsdl:port name="SearchAPISoap" binding="tns:SearchAPISoap">
+      <soap:address location="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SearchAPISoap12" binding="tns:SearchAPISoap12">
+      <soap12:address location="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

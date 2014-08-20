@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx?wsdl" docRef="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx" xmlns:q1="https://www.hhaexchange.com/apis/hhaws.search" binding="q1:SearchAPISoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://beta.hhaexchange.com/HHAWSRest/SearchAPI.asmx" xmlns:q2="https://www.hhaexchange.com/apis/hhaws.search" binding="q2:SearchAPISoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

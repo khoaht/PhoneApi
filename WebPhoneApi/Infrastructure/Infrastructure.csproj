@@ -123,9 +123,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -149,28 +146,19 @@
     <None Include="Service References\HhaExchange\Infrastructure.HhaExchange.CallerIDLookupResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\HhaExchange\SearchAPIRest.wsdl" />
-    <None Include="Service References\HhaExchange\SearchAPIRest.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HhaExchange\SearchAPIRest1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HhaExchange\SearchAPIRest2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HhaExchange\SearchAPIRest3.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Service References\HhaExchange\SearchAPI.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <WCFMetadataStorage Include="Service References\HhaExchange\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\HhaExchange\SearchAPIRest.disco" />
+    <None Include="Service References\HhaExchange\SearchAPI.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\HhaExchange\configuration91.svcinfo" />

@@ -134,15 +134,14 @@ namespace TeleGoApi.Controllers
                         respone.ErrorInfo.MessageInfo = restResult.Result.ErrorInfo.ErrorMessage;
                     }
                 } 
-                //3. Query Extension Number of Coordinator in TeleGo DB
-
-                //4. Return Extension to PBX
+                //3. Query Extension Number of Coordinator in TeleGo DB 
             }
             else
             {
                 respone.Status = Infrastructure.StatusCode.Failure; 
                 respone.ErrorInfo.MessageInfo = "Not enough information";
             }
+            //4. Return Extension to PBX
             return respone;
         }
 

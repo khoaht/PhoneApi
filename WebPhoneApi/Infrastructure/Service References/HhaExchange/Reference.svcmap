@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1d699a8e-b96c-4c67-8d46-ee734838bd1f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="74a93ee6-004e-4287-a03d-31e70c4e89b5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,12 +22,12 @@
     <MetadataSource Address="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SearchAPIRest.xsd" MetadataType="Schema" ID="96aa82e5-0f77-4ee8-9900-4b00c30dd3fc" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd2" />
-    <MetadataFile FileName="SearchAPIRest1.xsd" MetadataType="Schema" ID="5cd11ae1-33e5-4218-a323-8fe6cef8f18a" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd0" />
-    <MetadataFile FileName="SearchAPIRest.disco" MetadataType="Disco" ID="9f41b92c-8e7c-4662-94cf-5ff2a0522076" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?disco" />
-    <MetadataFile FileName="SearchAPIRest2.xsd" MetadataType="Schema" ID="e1ab0a60-4c43-4c89-943b-fe332ab08685" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd3" />
-    <MetadataFile FileName="SearchAPIRest.wsdl" MetadataType="Wsdl" ID="cee8a649-7046-444c-84e4-b80efba71efb" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?wsdl" />
-    <MetadataFile FileName="SearchAPIRest3.xsd" MetadataType="Schema" ID="417978f3-eb72-4b8a-867a-abc3f6637a82" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd1" />
+    <MetadataFile FileName="SearchAPIRest.xsd" MetadataType="Schema" ID="29862e2e-e189-480e-a1ba-94d1a48739fd" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd2" />
+    <MetadataFile FileName="SearchAPIRest1.xsd" MetadataType="Schema" ID="0b074cd9-6122-409a-814a-2c27d1b172fa" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd0" />
+    <MetadataFile FileName="SearchAPIRest.disco" MetadataType="Disco" ID="bd81ea14-b2bd-47cc-870e-43092d1298ad" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?disco" />
+    <MetadataFile FileName="SearchAPIRest2.xsd" MetadataType="Schema" ID="02c91571-06c0-492f-86fe-bd68a52129df" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd3" />
+    <MetadataFile FileName="SearchAPIRest.wsdl" MetadataType="Wsdl" ID="bb66e530-0de0-4494-bcea-82956fc35d9a" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?wsdl" />
+    <MetadataFile FileName="SearchAPIRest3.xsd" MetadataType="Schema" ID="5920bf69-19d9-417b-9abf-c766035b97ac" SourceId="1" SourceUrl="https://www.hhaexchange.com/HHAWS/SearchAPIRest.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

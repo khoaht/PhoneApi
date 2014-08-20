@@ -1,5 +1,4 @@
 ﻿using Infrastructure;
-
 using Infrastructure.HhaExchange;
 using System;
 using System.Collections.Generic;
@@ -22,12 +21,14 @@ namespace TeleGoApi.Controllers
 
         public string Filter
         {
-            get {
+            get
+            {
                 if (String.IsNullOrEmpty(filter))
                 {
                     filter = ConfigurationManager.AppSettings["Filter"].ToString();
-                } 
-                return filter; }
+                }
+                return filter;
+            }
             set { filter = value; }
         }
         public string AppName
@@ -37,7 +38,7 @@ namespace TeleGoApi.Controllers
                 if (String.IsNullOrEmpty(appName))
                 {
                     appName = ConfigurationManager.AppSettings["AppName"].ToString();
-                } 
+                }
                 return appName;
             }
             set { appName = value; }
@@ -53,7 +54,7 @@ namespace TeleGoApi.Controllers
                 return appKey;
             }
             set { appKey = value; }
-        } 
+        }
         public string AppSecret
         {
             get
@@ -77,10 +78,11 @@ namespace TeleGoApi.Controllers
                 return appStart;
             }
         }
-        
+
+         
         public string GetExtension(string userName, string password, string customerId, string callerId)
         {
-            if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) 
+            if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password)
                 && !String.IsNullOrEmpty(customerId) && !String.IsNullOrEmpty(callerId))
             {
                 //TODO:
@@ -89,23 +91,23 @@ namespace TeleGoApi.Controllers
 
                 CallerIDLookupResponse restResult = client.GetCallerDataByCallerID(AppName, AppSecret, AppKey, callerId, Filter);
                 //2. HHAExchange return a Coordinator1 Name
-                if (restResult!=null && restResult.Result!=null)
-                 { 
-                     if (restResult.Result.Status.Equals(Status.Success))
-                     { 
-                        
-                     }
-                     else if (restResult.Result.Status.Equals(Status.Failure))
-                     { 
-                     
-                     }
-                 }
+                if (restResult != null && restResult.Result != null)
+                {
+                    if (restResult.Result.Status.Equals(Status.Success))
+                    {
+
+                    }
+                    else if (restResult.Result.Status.Equals(Status.Failure))
+                    {
+
+                    }
+                }
                 //3. Query Extension Number of Coordinator in TeleGo DB
                 //4. Return Extension to PBX
             }
             return string.Empty;
         }
 
-         
+
     }
 }

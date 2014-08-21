@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TeleGoApi.Domain.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TeleGoApi.Domain.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Id" />
@@ -27,6 +27,17 @@
           <Property Name="ProvisioningCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerCoordinator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="Coordinator1" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Extension" Type="varchar" MaxLength="10" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Domain">
           <Key>
@@ -203,6 +214,18 @@
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="RoleId" Type="bigint" Nullable="false" />
         </EntityType>
+        <Association Name="FK__CustomerC__Custo__6DCC4D03">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerCoordinator" Type="Self.CustomerCoordinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerCoordinator">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Account_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -218,7 +241,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Log_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Log" Type="Self.Log" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -380,6 +405,7 @@
         <EntityContainer Name="TeleGoApiDomainStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerCoordinator" EntityType="Self.CustomerCoordinator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Domain" EntityType="Self.Domain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OfficeLocation" EntityType="Self.OfficeLocation" Schema="dbo" store:Type="Tables" />
@@ -396,6 +422,10 @@
           <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CustomerC__Custo__6DCC4D03" Association="Self.FK__CustomerC__Custo__6DCC4D03">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerCoordinator" EntitySet="CustomerCoordinator" />
+          </AssociationSet>
           <AssociationSet Name="FK_Account_Customer" Association="Self.FK_Account_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Account" EntitySet="Account" />
@@ -449,8 +479,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TeleGoApi.Domain" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -481,6 +510,7 @@
           <NavigationProperty Name="OfficeLocations" Relationship="Self.FK_OfficeLocation_Customer" FromRole="Customer" ToRole="OfficeLocation" />
           <NavigationProperty Name="PhoneNumbers" Relationship="Self.FK_PhoneNumber_Customer" FromRole="Customer" ToRole="PhoneNumber" />
           <NavigationProperty Name="ToDoes" Relationship="Self.FK_ToDo_Customer" FromRole="Customer" ToRole="ToDo" />
+          <NavigationProperty Name="CustomerCoordinators" Relationship="TeleGoApi.Domain.FK__CustomerC__Custo__6DCC4D03" FromRole="Customer" ToRole="CustomerCoordinator" />
         </EntityType>
         <EntityType Name="Domain">
           <Key>
@@ -884,7 +914,36 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="CustomerCoordinators" EntityType="TeleGoApi.Domain.CustomerCoordinator" />
+          <AssociationSet Name="FK__CustomerC__Custo__6DCC4D03" Association="TeleGoApi.Domain.FK__CustomerC__Custo__6DCC4D03">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerCoordinator" EntitySet="CustomerCoordinators" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CustomerCoordinator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="Coordinator1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="TeleGoApi.Domain.FK__CustomerC__Custo__6DCC4D03" FromRole="CustomerCoordinator" ToRole="Customer" />
+          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__CustomerC__Custo__6DCC4D03">
+          <End Type="TeleGoApi.Domain.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="TeleGoApi.Domain.CustomerCoordinator" Role="CustomerCoordinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerCoordinator">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1104,6 +1163,18 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CustomerCoordinators">
+            <EntityTypeMapping TypeName="TeleGoApi.Domain.CustomerCoordinator">
+              <MappingFragment StoreEntitySet="CustomerCoordinator">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Coordinator1" ColumnName="Coordinator1" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

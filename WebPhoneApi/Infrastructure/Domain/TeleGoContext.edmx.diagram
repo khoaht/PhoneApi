@@ -34,6 +34,8 @@
         <AssociationConnector Association="TeleGoApi.Domain.FK_UserClaim_User" ManuallyRouted="false" />
         <AssociationConnector Association="TeleGoApi.Domain.FK_UserLogin_User" ManuallyRouted="false" />
         <AssociationConnector Association="TeleGoApi.Domain.UserRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TeleGoApi.Domain.CustomerCoordinator" Width="1.875" PointX="8.25" PointY="18.25" />
+        <AssociationConnector Association="TeleGoApi.Domain.FK__CustomerC__Custo__6DCC4D03" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

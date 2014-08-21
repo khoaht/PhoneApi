@@ -35,11 +35,13 @@ namespace Infrastructure.Domain
         public virtual DbSet<Priority> Priorities { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Server> Servers { get; set; }
-        public virtual DbSet<Status> Status { get; set; }       
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ToDo> ToDoes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserClaim> UserClaims { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<UserRegistrationToken> UserRegistrationTokens { get; set; }
+        public virtual DbSet<CustomerCoordinator> CustomerCoordinators { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace Infrastructure.Domain
             this.OfficeLocations = new HashSet<OfficeLocation>();
             this.PhoneNumbers = new HashSet<PhoneNumber>();
             this.ToDoes = new HashSet<ToDo>();
+            this.CustomerCoordinators = new HashSet<CustomerCoordinator>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,6 @@ namespace Infrastructure.Domain
         public virtual ICollection<OfficeLocation> OfficeLocations { get; set; }
         public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
         public virtual ICollection<ToDo> ToDoes { get; set; }
+        public virtual ICollection<CustomerCoordinator> CustomerCoordinators { get; set; }
     }
 }

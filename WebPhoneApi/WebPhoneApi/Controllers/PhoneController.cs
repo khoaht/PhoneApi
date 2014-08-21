@@ -20,7 +20,20 @@ namespace TeleGoApi.Controllers
         private string appSecret = string.Empty;
         private string appName = string.Empty;
         private string filter = string.Empty;
-        
+        private TeleGoContext telegoContext;
+
+        public TeleGoContext Context
+        {
+            get
+            {
+                if (telegoContext == null)
+                {
+                    telegoContext = new TeleGoContext();
+                }
+                return telegoContext; }
+            set { telegoContext = value; }
+        }
+
         public string Filter
         {
             get
@@ -130,7 +143,7 @@ namespace TeleGoApi.Controllers
                             //3. Query Extension Number of Coordinator in TeleGo DB 
                             //retrieve dB set values to extension and phone fields .
                             //Add code here.
-
+                               
                             //add to list 
                             respone.Items.Add(data);
                         }

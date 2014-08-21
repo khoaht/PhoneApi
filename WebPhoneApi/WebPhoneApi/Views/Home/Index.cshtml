@@ -4,23 +4,23 @@
 <div class="row">
     <div class="form-group">
         <label>UserName:</label>
-        <input class="form-control" type="text" id="txtUserName" value="anhv" required />
+        <input class="form-control" type="text" id="txtUserName" value="telego" placeholder="Enter UserName" required />
     </div>
     <div class="form-group">
         <label>Password:</label>
-        <input class="form-control" type="password" id="txtPassword" value="a" required />
+        <input class="form-control" type="password" id="txtPassword" value="telego" placeholder="Enter password" required />
     </div>
     <div class="form-group">
         <label>CustomerId:</label>
-        <input class="form-control" type="text" id="txtCustomerId" value="1" required />
+        <input class="form-control" type="text" id="txtCustomerId" value="1" placeholder="Enter customer id" required />
     </div>
     <div class="form-group">
         <label>CallerId:</label>
-        <input class="form-control" type="tel" id="txtCallerId" value="7187827573" required />
+        <input class="form-control" type="tel" id="txtCallerId" value="7187827573" placeholder="Enter callerId"  required />
     </div>
     <div class="form-group">
-        <label id="lblResult">Result-Extension Number:</label>
-        
+        <label>Result-Extension Number:</label>
+        <input id="lblResult" class="form-control" type="text" readonly />
     </div>
     <button class="btn btn-primary btn-large" onclick="GetExtension()">Request</button>
 
@@ -31,15 +31,14 @@
         var password = $('#txtPassword').val();
         var callerId = $('#txtCallerId').val();
         var customerId = $('#txtCustomerId').val();
-
+        $('#lblResult').val('Waiting...');
         var url = "api/Phone/GetExtension/";//+username+"/"+password+"/"+customerId+"/"+callerId;
         $.ajax({
             type: 'GET',
             url: url,
             data: { username: username, password: password, customerId: customerId, callerId: callerId }
-        }).done(function (data) {
-            
-            alert(data.Status);
+        }).done(function (result) {
+            $('#lblResult').val(result.Data);
         })
     }
 </script>

@@ -20,7 +20,7 @@ namespace TeleGoApi.Controllers
         private string appSecret = string.Empty;
         private string appName = string.Empty;
         private string filter = string.Empty;
-
+        
         public string Filter
         {
             get
@@ -81,6 +81,8 @@ namespace TeleGoApi.Controllers
             }
         } 
 
+
+
         public MessageRespone GetExtension(string userName, string password, string customerId, string callerId)
         {
             MessageRespone respone = new MessageRespone();
@@ -124,6 +126,11 @@ namespace TeleGoApi.Controllers
                                 };
                                 data.Services.Add(s);
                             } 
+                            // get extension and coordinator
+                            //3. Query Extension Number of Coordinator in TeleGo DB 
+                            //retrieve dB set values to extension and phone fields .
+                            //Add code here.
+
                             //add to list 
                             respone.Items.Add(data);
                         }
@@ -133,8 +140,10 @@ namespace TeleGoApi.Controllers
                         respone.Status = Infrastructure.StatusCode.Failure; 
                         respone.ErrorInfo.MessageInfo = restResult.Result.ErrorInfo.ErrorMessage;
                     }
+
+                    
                 } 
-                //3. Query Extension Number of Coordinator in TeleGo DB 
+                
             }
             else
             {

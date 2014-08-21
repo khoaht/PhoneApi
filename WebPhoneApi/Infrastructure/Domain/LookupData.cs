@@ -21,7 +21,8 @@ namespace Infrastructure.Domain
         public string Team { get; set; }
         public string Type { get; set; }
         public string Zip { get; set; }
-
+        public int Extension { get; set; }
+        public string Phone { get; set; }
         public List<Service> Services { get; set; }
     }
 

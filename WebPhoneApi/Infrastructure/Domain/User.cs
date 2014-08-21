@@ -14,15 +14,6 @@ namespace Infrastructure.Domain
     
     public partial class User
     {
-        public User()
-        {
-            this.Logs = new HashSet<Log>();
-            this.ToDoes = new HashSet<ToDo>();
-            this.UserClaims = new HashSet<UserClaim>();
-            this.UserLogins = new HashSet<UserLogin>();
-            this.Roles = new HashSet<Role>();
-        }
-    
         public long Id { get; set; }
         public string Login { get; set; }
         public string EMail { get; set; }
@@ -45,11 +36,5 @@ namespace Infrastructure.Domain
         public string Comments { get; set; }
         public Nullable<System.DateTime> LastActivityDate { get; set; }
         public bool IsDeleted { get; set; }
-    
-        public virtual ICollection<Log> Logs { get; set; }
-        public virtual ICollection<ToDo> ToDoes { get; set; }
-        public virtual ICollection<UserClaim> UserClaims { get; set; }
-        public virtual ICollection<UserLogin> UserLogins { get; set; }
-        public virtual ICollection<Role> Roles { get; set; }
     }
 }

@@ -24,6 +24,13 @@ namespace TeleGoApi.Controllers
         private readonly IUserService userService;
         private readonly ICustomerCoordinateService customerCoordinateService;
 
+        public PhoneController(IUserService userService, ICustomerCoordinateService customerCoordinateService)
+        {
+            this.customerCoordinateService = customerCoordinateService;
+            this.userService = userService;
+        }
+
+
         public string Filter
         {
             get
@@ -84,11 +91,6 @@ namespace TeleGoApi.Controllers
             }
         }
 
-        public PhoneController(IUserService userService, ICustomerCoordinateService customerCoordinateService)
-        {
-            this.customerCoordinateService = customerCoordinateService;
-            this.userService = userService;
-        }
 
         public MessageRespone GetExtension(string userName, string password, int customerId, string callerId)
         {

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TeleGoApi.Domain.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Infrastructure.Domain.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Id" />
@@ -39,42 +39,6 @@
           <Property Name="Extension" Type="varchar" MaxLength="10" />
           <Property Name="Phone" Type="varchar" MaxLength="20" />
         </EntityType>
-        <EntityType Name="Domain">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DomainName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="bigint" />
-          <Property Name="Timestamp" Type="datetime" />
-          <Property Name="OriginalValue" Type="nvarchar(max)" />
-          <Property Name="NewValue" Type="nvarchar(max)" />
-          <Property Name="RecordId" Type="int" />
-          <Property Name="EventType" Type="nvarchar" MaxLength="50" />
-          <Property Name="Model" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="OfficeLocation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Dns" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="255" />
-          <Property Name="Comment" Type="nvarchar(max)" />
-          <Property Name="CustomerId" Type="int" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="RouterDetails" Type="nvarchar(max)" />
-          <Property Name="ServerDetails" Type="nvarchar(max)" />
-          <Property Name="IspDetails" Type="nvarchar(max)" />
-          <Property Name="GeneralNotes" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="PhoneNumber">
           <Key>
             <PropertyRef Name="Id" />
@@ -95,62 +59,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Website" Type="nvarchar" MaxLength="50" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Priority">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PriorityName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="Server">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdminUserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Status">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="ToDo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Task" Type="nvarchar(max)" />
-          <Property Name="EndDate" Type="datetime" />
-          <Property Name="CastomerId" Type="int" />
-          <Property Name="IsDone" Type="bit" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="StatusId" Type="int" />
-          <Property Name="PriorityId" Type="int" />
-          <Property Name="UserId" Type="bigint" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -179,41 +87,6 @@
           <Property Name="LastActivityDate" Type="datetime" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="bigint" Nullable="false" />
-          <Property Name="ClaimType" Type="nvarchar(max)" />
-          <Property Name="ClaimValue" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="UserLogin">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-          </Key>
-          <Property Name="UserId" Type="bigint" Nullable="false" />
-          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRegistrationToken">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="bigint" />
-          <Property Name="Token" Type="nchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="bigint" Nullable="false" />
-          <Property Name="RoleId" Type="bigint" Nullable="false" />
-        </EntityType>
         <Association Name="FK__CustomerC__Custo__6DCC4D03">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="CustomerCoordinator" Type="Self.CustomerCoordinator" Multiplicity="*" />
@@ -240,34 +113,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Log_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Log">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OfficeLocation_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OfficeLocation" Type="Self.OfficeLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OfficeLocation">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PhoneNumber_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -296,132 +141,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ToDo_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="CastomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToDo_Priority">
-          <End Role="Priority" Type="Self.Priority" Multiplicity="0..1" />
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Priority">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="PriorityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToDo_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToDo_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserClaim_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserClaim">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserLogin_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserLogin">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="TeleGoApiDomainStoreContainer">
+        <EntityContainer Name="InfrastructureDomainStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerCoordinator" EntityType="Self.CustomerCoordinator" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Domain" EntityType="Self.Domain" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OfficeLocation" EntityType="Self.OfficeLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneNumber" EntityType="Self.PhoneNumber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneNumberProvider" EntityType="Self.PhoneNumberProvider" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Priority" EntityType="Self.Priority" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Server" EntityType="Self.Server" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ToDo" EntityType="Self.ToDo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CustomerC__Custo__6DCC4D03" Association="Self.FK__CustomerC__Custo__6DCC4D03">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="CustomerCoordinator" EntitySet="CustomerCoordinator" />
@@ -429,14 +155,6 @@
           <AssociationSet Name="FK_Account_Customer" Association="Self.FK_Account_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Account" EntitySet="Account" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Log_User" Association="Self.FK_Log_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Log" EntitySet="Log" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OfficeLocation_Customer" Association="Self.FK_OfficeLocation_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="OfficeLocation" EntitySet="OfficeLocation" />
           </AssociationSet>
           <AssociationSet Name="FK_PhoneNumber_Customer" Association="Self.FK_PhoneNumber_Customer">
             <End Role="Customer" EntitySet="Customer" />
@@ -446,43 +164,11 @@
             <End Role="PhoneNumberProvider" EntitySet="PhoneNumberProvider" />
             <End Role="PhoneNumber" EntitySet="PhoneNumber" />
           </AssociationSet>
-          <AssociationSet Name="FK_ToDo_Customer" Association="Self.FK_ToDo_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="ToDo" EntitySet="ToDo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_Priority" Association="Self.FK_ToDo_Priority">
-            <End Role="Priority" EntitySet="Priority" />
-            <End Role="ToDo" EntitySet="ToDo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_Status" Association="Self.FK_ToDo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="ToDo" EntitySet="ToDo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_User" Association="Self.FK_ToDo_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ToDo" EntitySet="ToDo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserClaim" EntitySet="UserClaim" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserLogin_User" Association="Self.FK_UserLogin_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserLogin" EntitySet="UserLogin" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TeleGoApi.Domain" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Infrastructure.Domain" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Id" />
@@ -507,48 +193,20 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Customer" FromRole="Customer" ToRole="Account" />
-          <NavigationProperty Name="OfficeLocations" Relationship="Self.FK_OfficeLocation_Customer" FromRole="Customer" ToRole="OfficeLocation" />
+          <NavigationProperty Name="CustomerCoordinators" Relationship="Self.FK__CustomerC__Custo__6DCC4D03" FromRole="Customer" ToRole="CustomerCoordinator" />
           <NavigationProperty Name="PhoneNumbers" Relationship="Self.FK_PhoneNumber_Customer" FromRole="Customer" ToRole="PhoneNumber" />
-          <NavigationProperty Name="ToDoes" Relationship="Self.FK_ToDo_Customer" FromRole="Customer" ToRole="ToDo" />
-          <NavigationProperty Name="CustomerCoordinators" Relationship="TeleGoApi.Domain.FK__CustomerC__Custo__6DCC4D03" FromRole="Customer" ToRole="CustomerCoordinator" />
         </EntityType>
-        <EntityType Name="Domain">
+        <EntityType Name="CustomerCoordinator">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DomainName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="Coordinator1" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int64" />
-          <Property Name="Timestamp" Type="DateTime" Precision="3" />
-          <Property Name="OriginalValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NewValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RecordId" Type="Int32" />
-          <Property Name="EventType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Log_User" FromRole="Log" ToRole="User" />
-        </EntityType>
-        <EntityType Name="OfficeLocation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dns" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerId" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="RouterDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ServerDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IspDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GeneralNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_OfficeLocation_Customer" FromRole="OfficeLocation" ToRole="Customer" />
+          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__CustomerC__Custo__6DCC4D03" FromRole="CustomerCoordinator" ToRole="Customer" />
         </EntityType>
         <EntityType Name="PhoneNumber">
           <Key>
@@ -574,76 +232,91 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="PhoneNumbers" Relationship="Self.FK_PhoneNumber_PhoneNumberProvider" FromRole="PhoneNumberProvider" ToRole="PhoneNumber" />
         </EntityType>
-        <EntityType Name="Priority">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PriorityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ToDoes" Relationship="Self.FK_ToDo_Priority" FromRole="Priority" ToRole="ToDo" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Server">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdminUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Status">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ToDoes" Relationship="Self.FK_ToDo_Status" FromRole="Status" ToRole="ToDo" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="ToDo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Task" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="CastomerId" Type="Int32" />
-          <Property Name="IsDone" Type="Boolean" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="StatusId" Type="Int32" />
-          <Property Name="PriorityId" Type="Int32" />
-          <Property Name="UserId" Type="Int64" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_ToDo_Customer" FromRole="ToDo" ToRole="Customer" />
-          <NavigationProperty Name="Priority" Relationship="Self.FK_ToDo_Priority" FromRole="ToDo" ToRole="Priority" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_ToDo_Status" FromRole="ToDo" ToRole="Status" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ToDo_User" FromRole="ToDo" ToRole="User" />
-        </EntityType>
+        <Association Name="FK_Account_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CustomerC__Custo__6DCC4D03">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerCoordinator" Type="Self.CustomerCoordinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerCoordinator">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneNumber_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhoneNumber" Type="Self.PhoneNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhoneNumber">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneNumber_PhoneNumberProvider">
+          <End Role="PhoneNumberProvider" Type="Self.PhoneNumberProvider" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhoneNumber" Type="Self.PhoneNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneNumberProvider">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhoneNumber">
+              <PropertyRef Name="PhoneNumberProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TeleGoContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="CustomerCoordinators" EntityType="Self.CustomerCoordinator" />
+          <EntitySet Name="PhoneNumbers" EntityType="Self.PhoneNumber" />
+          <EntitySet Name="PhoneNumberProviders" EntityType="Self.PhoneNumberProvider" />
+          <AssociationSet Name="FK_Account_Customer" Association="Self.FK_Account_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CustomerC__Custo__6DCC4D03" Association="Self.FK__CustomerC__Custo__6DCC4D03">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerCoordinator" EntitySet="CustomerCoordinators" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneNumber_Customer" Association="Self.FK_PhoneNumber_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="PhoneNumber" EntitySet="PhoneNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneNumber_PhoneNumberProvider" Association="Self.FK_PhoneNumber_PhoneNumberProvider">
+            <End Role="PhoneNumberProvider" EntitySet="PhoneNumberProviders" />
+            <End Role="PhoneNumber" EntitySet="PhoneNumbers" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="Infrastructure.Domain.User" />
+        </EntityContainer>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EMail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="ApprovalDate" Type="DateTime" Precision="3" />
@@ -663,295 +336,15 @@
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LastActivityDate" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Logs" Relationship="Self.FK_Log_User" FromRole="User" ToRole="Log" />
-          <NavigationProperty Name="ToDoes" Relationship="Self.FK_ToDo_User" FromRole="User" ToRole="ToDo" />
-          <NavigationProperty Name="UserClaims" Relationship="Self.FK_UserClaim_User" FromRole="User" ToRole="UserClaim" />
-          <NavigationProperty Name="UserLogins" Relationship="Self.FK_UserLogin_User" FromRole="User" ToRole="UserLogin" />
-          <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
         </EntityType>
-        <EntityType Name="UserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int64" Nullable="false" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserClaim_User" FromRole="UserClaim" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserLogin">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-          </Key>
-          <Property Name="UserId" Type="Int64" Nullable="false" />
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserLogin_User" FromRole="UserLogin" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserRegistrationToken">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int64" />
-          <Property Name="Token" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Account_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OfficeLocation_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OfficeLocation" Type="Self.OfficeLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OfficeLocation">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PhoneNumber_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PhoneNumber" Type="Self.PhoneNumber" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PhoneNumber">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToDo_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="CastomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Log_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Log">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PhoneNumber_PhoneNumberProvider">
-          <End Role="PhoneNumberProvider" Type="Self.PhoneNumberProvider" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PhoneNumber" Type="Self.PhoneNumber" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PhoneNumberProvider">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PhoneNumber">
-              <PropertyRef Name="PhoneNumberProviderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToDo_Priority">
-          <End Role="Priority" Type="Self.Priority" Multiplicity="0..1" />
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Priority">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="PriorityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToDo_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToDo_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ToDo" Type="Self.ToDo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToDo">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserClaim_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserClaim">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserLogin_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserLogin">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="UserRole">
-          <End Role="Role" Type="Self.Role" Multiplicity="*" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Domains" EntityType="Self.Domain" />
-          <EntitySet Name="Logs" EntityType="Self.Log" />
-          <EntitySet Name="OfficeLocations" EntityType="Self.OfficeLocation" />
-          <EntitySet Name="PhoneNumbers" EntityType="Self.PhoneNumber" />
-          <EntitySet Name="PhoneNumberProviders" EntityType="Self.PhoneNumberProvider" />
-          <EntitySet Name="Priorities" EntityType="Self.Priority" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Servers" EntityType="Self.Server" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="ToDoes" EntityType="Self.ToDo" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
-          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
-          <EntitySet Name="UserRegistrationTokens" EntityType="Self.UserRegistrationToken" />
-          <AssociationSet Name="FK_Account_Customer" Association="Self.FK_Account_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Account" EntitySet="Accounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OfficeLocation_Customer" Association="Self.FK_OfficeLocation_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="OfficeLocation" EntitySet="OfficeLocations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PhoneNumber_Customer" Association="Self.FK_PhoneNumber_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="PhoneNumber" EntitySet="PhoneNumbers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_Customer" Association="Self.FK_ToDo_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="ToDo" EntitySet="ToDoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Log_User" Association="Self.FK_Log_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Log" EntitySet="Logs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PhoneNumber_PhoneNumberProvider" Association="Self.FK_PhoneNumber_PhoneNumberProvider">
-            <End Role="PhoneNumberProvider" EntitySet="PhoneNumberProviders" />
-            <End Role="PhoneNumber" EntitySet="PhoneNumbers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_Priority" Association="Self.FK_ToDo_Priority">
-            <End Role="Priority" EntitySet="Priorities" />
-            <End Role="ToDo" EntitySet="ToDoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_Status" Association="Self.FK_ToDo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="ToDo" EntitySet="ToDoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDo_User" Association="Self.FK_ToDo_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ToDo" EntitySet="ToDoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserClaim" EntitySet="UserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserLogin_User" Association="Self.FK_UserLogin_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserLogin" EntitySet="UserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="UserRole" Association="Self.UserRole">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <EntitySet Name="CustomerCoordinators" EntityType="TeleGoApi.Domain.CustomerCoordinator" />
-          <AssociationSet Name="FK__CustomerC__Custo__6DCC4D03" Association="TeleGoApi.Domain.FK__CustomerC__Custo__6DCC4D03">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="CustomerCoordinator" EntitySet="CustomerCoordinators" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="CustomerCoordinator">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="Coordinator1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="TeleGoApi.Domain.FK__CustomerC__Custo__6DCC4D03" FromRole="CustomerCoordinator" ToRole="Customer" />
-          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK__CustomerC__Custo__6DCC4D03">
-          <End Type="TeleGoApi.Domain.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="TeleGoApi.Domain.CustomerCoordinator" Role="CustomerCoordinator" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CustomerCoordinator">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TeleGoApiDomainStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="InfrastructureDomainStoreContainer" CdmEntityContainer="TeleGoContext">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Account">
+            <EntityTypeMapping TypeName="Infrastructure.Domain.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AccountInformation" ColumnName="AccountInformation" />
@@ -964,7 +357,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Customer">
+            <EntityTypeMapping TypeName="Infrastructure.Domain.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -975,47 +368,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Domains">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Domain">
-              <MappingFragment StoreEntitySet="Domain">
+          <EntitySetMapping Name="CustomerCoordinators">
+            <EntityTypeMapping TypeName="Infrastructure.Domain.CustomerCoordinator">
+              <MappingFragment StoreEntitySet="CustomerCoordinator">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DomainName" ColumnName="DomainName" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="OriginalValue" ColumnName="OriginalValue" />
-                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
-                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
-                <ScalarProperty Name="EventType" ColumnName="EventType" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OfficeLocations">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.OfficeLocation">
-              <MappingFragment StoreEntitySet="OfficeLocation">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Dns" ColumnName="Dns" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Coordinator1" ColumnName="Coordinator1" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="RouterDetails" ColumnName="RouterDetails" />
-                <ScalarProperty Name="ServerDetails" ColumnName="ServerDetails" />
-                <ScalarProperty Name="IspDetails" ColumnName="IspDetails" />
-                <ScalarProperty Name="GeneralNotes" ColumnName="GeneralNotes" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhoneNumbers">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.PhoneNumber">
+            <EntityTypeMapping TypeName="Infrastructure.Domain.PhoneNumber">
               <MappingFragment StoreEntitySet="PhoneNumber">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
@@ -1028,7 +394,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhoneNumberProviders">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.PhoneNumberProvider">
+            <EntityTypeMapping TypeName="Infrastructure.Domain.PhoneNumberProvider">
               <MappingFragment StoreEntitySet="PhoneNumberProvider">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1037,140 +403,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Priorities">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Priority">
-              <MappingFragment StoreEntitySet="Priority">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Servers">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Server">
-              <MappingFragment StoreEntitySet="Server">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-                <ScalarProperty Name="AdminUserName" ColumnName="AdminUserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.Status">
-              <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ToDoes">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.ToDo">
-              <MappingFragment StoreEntitySet="ToDo">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Task" ColumnName="Task" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="CastomerId" ColumnName="CastomerId" />
-                <ScalarProperty Name="IsDone" ColumnName="IsDone" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.User">
+            <EntityTypeMapping TypeName="Infrastructure.Domain.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="EMail" ColumnName="EMail" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
-                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
-                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
-                <ScalarProperty Name="ActivationToken" ColumnName="ActivationToken" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserClaims">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.UserClaim">
-              <MappingFragment StoreEntitySet="UserClaim">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserLogins">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.UserLogin">
-              <MappingFragment StoreEntitySet="UserLogin">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRegistrationTokens">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.UserRegistrationToken">
-              <MappingFragment StoreEntitySet="UserRegistrationToken">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="UserRole" TypeName="TeleGoApi.Domain.UserRole" StoreEntitySet="UserRole">
-            <EndProperty Name="Role">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="CustomerCoordinators">
-            <EntityTypeMapping TypeName="TeleGoApi.Domain.CustomerCoordinator">
-              <MappingFragment StoreEntitySet="CustomerCoordinator">
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Extension" ColumnName="Extension" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Coordinator1" ColumnName="Coordinator1" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="ActivationToken" ColumnName="ActivationToken" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

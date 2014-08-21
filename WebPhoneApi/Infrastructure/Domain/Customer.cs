@@ -17,10 +17,8 @@ namespace Infrastructure.Domain
         public Customer()
         {
             this.Accounts = new HashSet<Account>();
-            this.OfficeLocations = new HashSet<OfficeLocation>();
-            this.PhoneNumbers = new HashSet<PhoneNumber>();
-            this.ToDoes = new HashSet<ToDo>();
             this.CustomerCoordinators = new HashSet<CustomerCoordinator>();
+            this.PhoneNumbers = new HashSet<PhoneNumber>();
         }
     
         public int Id { get; set; }
@@ -31,9 +29,7 @@ namespace Infrastructure.Domain
         public bool IsDeleted { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
-        public virtual ICollection<OfficeLocation> OfficeLocations { get; set; }
-        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
-        public virtual ICollection<ToDo> ToDoes { get; set; }
         public virtual ICollection<CustomerCoordinator> CustomerCoordinators { get; set; }
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
     }
 }

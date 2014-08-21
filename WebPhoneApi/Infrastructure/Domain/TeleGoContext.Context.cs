@@ -12,36 +12,41 @@ namespace Infrastructure.Domain
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.ModelConfiguration.Conventions;
     public partial class TeleGoContext : DbContext
     {
         public TeleGoContext()
-            : base("name=ApplicationConnection")
+            : base("name=TeleGoContext")
         {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.Entity<Account>()
+                .ToTable("Account");
+            modelBuilder.Entity<Customer>()
+                .ToTable("Customer");
+
+            modelBuilder.Entity<CustomerCoordinator>()
+                .ToTable("CustomerCoordinator");
+            modelBuilder.Entity<PhoneNumber>()
+                .ToTable("PhoneNumber");
+            modelBuilder.Entity<PhoneNumberProvider>()
+                .ToTable("PhoneNumberProvider");
+            modelBuilder.Entity<User>()
+                .ToTable("User");
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Domain> Domains { get; set; }
-        public virtual DbSet<Log> Logs { get; set; }
-        public virtual DbSet<OfficeLocation> OfficeLocations { get; set; }
+        public virtual DbSet<CustomerCoordinator> CustomerCoordinators { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public virtual DbSet<PhoneNumberProvider> PhoneNumberProviders { get; set; }
-        public virtual DbSet<Priority> Priorities { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Server> Servers { get; set; }
-        public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<ToDo> ToDoes { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserClaim> UserClaims { get; set; }
-        public virtual DbSet<UserLogin> UserLogins { get; set; }
-        public virtual DbSet<UserRegistrationToken> UserRegistrationTokens { get; set; }
-        public virtual DbSet<CustomerCoordinator> CustomerCoordinators { get; set; }
     }
 }

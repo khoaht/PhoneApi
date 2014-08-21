@@ -12,17 +12,7 @@ namespace Infrastructure
         public CustomerService(IRepository<Customer> customerRepository)
         {
             this.customerRepository = customerRepository;
-        }
-        public bool ValidateUser(string username, string password)
-        {
-            //TODO: ask customer laster
-            return true;
-        }
-
-
-        public string GetExtension(string coordinatorName)
-        {
-            throw new NotImplementedException();
-        }
+        } 
+       
     }
 }

@@ -13,6 +13,7 @@ namespace WebPhoneApi.App_Start
     using System.Data.Entity;
     using Infrastructure;
     using Infrastructure.Domain;
+    using Infrastructure.Services;
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -66,9 +67,13 @@ namespace WebPhoneApi.App_Start
             kernel.Bind<DbContext>().To<TeleGoContext>();
 
             kernel.Bind<ICustomerService>().To<CustomerService>();
+            kernel.Bind<ICustomerCoordinateService>().To<CustomerCoordinateService>();
+            kernel.Bind<IUserService>().To<UserService>();
 
             kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
             kernel.Bind(typeof(IRepository<Customer>)).To(typeof(Repository<Customer>));
+            kernel.Bind(typeof(IRepository<User>)).To(typeof(Repository<User>));
+            kernel.Bind(typeof(IRepository<CustomerCoordinator>)).To(typeof(Repository<CustomerCoordinator>));
         }        
     }
 }

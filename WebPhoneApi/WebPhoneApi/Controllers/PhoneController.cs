@@ -1,5 +1,6 @@
 ﻿using Infrastructure;
 using Infrastructure.Domain;
+using Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,19 +21,8 @@ namespace TeleGoApi.Controllers
         private string appSecret = string.Empty;
         private string appName = string.Empty;
         private string filter = string.Empty;
-        private TeleGoContext telegoContext;
-
-        public TeleGoContext Context
-        {
-            get
-            {
-                if (telegoContext == null)
-                {
-                    telegoContext = new TeleGoContext();
-                }
-                return telegoContext; }
-            set { telegoContext = value; }
-        }
+        private readonly IUserService userService;
+        private readonly ICustomerCoordinateService customerCoordinateService;
 
         public string Filter
         {
@@ -92,16 +82,28 @@ namespace TeleGoApi.Controllers
                 }
                 return appStart;
             }
-        } 
+        }
 
+        public PhoneController(IUserService userService, ICustomerCoordinateService customerCoordinateService)
+        {
+            this.customerCoordinateService = customerCoordinateService;
+            this.userService = userService;
+        }
 
-
-        public MessageRespone GetExtension(string userName, string password, string customerId, string callerId)
+        public MessageRespone GetExtension(string userName, string password, int customerId, string callerId)
         {
             MessageRespone respone = new MessageRespone();
-            respone.Items = new List<LookupData>();
+            respone.Extensions = new List<Extension>();
             respone.ErrorInfo = new Infrastructure.Domain.ErrorInfo();
-            if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) && !String.IsNullOrEmpty(customerId) && !String.IsNullOrEmpty(callerId))
+            //check login 
+            bool isLogined = userService.ValidateUser(userName, password);
+            if (!isLogined)
+            {
+                respone.Status = Infrastructure.StatusCode.Failure;
+                respone.ErrorInfo.MessageInfo = "not authorized";
+                return respone;
+            }
+            if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) &&  customerId>0 && !String.IsNullOrEmpty(callerId))
             {
                 //TODO:
                 //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret
@@ -116,45 +118,22 @@ namespace TeleGoApi.Controllers
                         respone.Status = Infrastructure.StatusCode.Success; 
                         foreach (var item in restResult.LookupData)
                         {
-                            LookupData data = new LookupData();
-                            data.Branch = item.Branch;
-                            data.City = item.City;
-                            data.Coordinator1 = item.Coordinator1;
-                            data.Coordinator2 = item.Coordinator2;
-                            data.Coordinator3 = item.Coordinator3;
-                            data.Location = item.Location;
-                            data.Nurse=item.Nurse;
-                            data.PrimaryContract = item.PrimaryContract;
-                            data.PrimaryLanguage = item.PrimaryLanguage;
-                            data.State = item.State;
-                            data.Team = item.Team;
-                            data.Type = item.Type;
-                            data.Zip = item.Zip;
-                            data.Services = new List<Service>();
-                            foreach (var service in item.Services)
+                            if (!String.IsNullOrEmpty(item.Coordinator1))
                             {
-                                Service s = new Service()
-                                {
-                                    ServiceName = service
-                                };
-                                data.Services.Add(s);
-                            } 
-                            // get extension and coordinator
-                            //3. Query Extension Number of Coordinator in TeleGo DB 
-                            //retrieve dB set values to extension and phone fields .
-                            //Add code here.
-                               
-                            //add to list 
-                            respone.Items.Add(data);
+                                // get extension and coordinator
+                                //3. Query Extension Number of Coordinator in TeleGo DB 
+                                Extension data = new Extension();
+                                data.Data = customerCoordinateService.GetExtension(customerId, item.Coordinator1);  
+                                //add to list 
+                                respone.Extensions.Add(data);
+                            }
                         }
                     }
                     else if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Failure.ToString()))
                     {
                         respone.Status = Infrastructure.StatusCode.Failure; 
                         respone.ErrorInfo.MessageInfo = restResult.Result.ErrorInfo.ErrorMessage;
-                    }
-
-                    
+                    } 
                 } 
                 
             }

@@ -96,6 +96,7 @@
     <Compile Include="Services\ICustomerService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="TeleGoContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

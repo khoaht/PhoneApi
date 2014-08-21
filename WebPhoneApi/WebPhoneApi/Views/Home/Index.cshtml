@@ -19,8 +19,8 @@
         <input class="form-control" type="tel" id="txtCallerId" value="7187827573" required />
     </div>
     <div class="form-group">
-        <label>Result-Extension Number:</label>
-        <p id="lblResult"></p>
+        <label id="lblResult">Result-Extension Number:</label>
+        
     </div>
     <button class="btn btn-primary btn-large" onclick="GetExtension()">Request</button>
 
@@ -38,7 +38,8 @@
             url: url,
             data: { username: username, password: password, customerId: customerId, callerId: callerId }
         }).done(function (data) {
-            $('#lblResult').val(data.Status);
+            
+            alert(data.Status);
         })
     }
 </script>

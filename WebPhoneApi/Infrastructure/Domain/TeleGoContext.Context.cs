@@ -19,28 +19,7 @@ namespace Infrastructure.Domain
             : base("name=TeleGoContext")
         {
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            base.OnModelCreating(modelBuilder);
-
-
-            modelBuilder.Entity<Account>()
-                .ToTable("Account");
-            modelBuilder.Entity<Customer>()
-                .ToTable("Customer");
-
-            modelBuilder.Entity<CustomerCoordinator>()
-                .ToTable("CustomerCoordinator");
-            modelBuilder.Entity<PhoneNumber>()
-                .ToTable("PhoneNumber");
-            modelBuilder.Entity<PhoneNumberProvider>()
-                .ToTable("PhoneNumberProvider");
-            modelBuilder.Entity<User>()
-                .ToTable("User");
-        }
     
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }

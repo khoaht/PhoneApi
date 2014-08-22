@@ -10,7 +10,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Xml.Linq;
-using WebPhoneApi.HhaExchange;
 
 namespace TeleGoApi.Controllers
 {

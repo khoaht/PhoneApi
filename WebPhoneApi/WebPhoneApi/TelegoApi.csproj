@@ -172,11 +172,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\HhaExchange\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -198,7 +193,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="Properties\DataSources\Infrastructure.HhaExchange.CallerIDLookupResponse.datasource" />
     <None Include="Properties\PublishProfiles\WebApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -210,13 +204,6 @@
     <Content Include="Service References\HhaExchange2\WebPhoneApi.HhaExchange2.CallerIDLookupResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\HhaExchange\SearchAPIRest.disco" />
-    <None Include="Service References\HhaExchange\configuration91.svcinfo" />
-    <None Include="Service References\HhaExchange\configuration.svcinfo" />
-    <None Include="Service References\HhaExchange\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Service References\HhaExchange2\SearchAPI.disco" />
     <Content Include="Service References\HhaExchange2\configuration91.svcinfo" />
     <Content Include="Service References\HhaExchange2\configuration.svcinfo" />
@@ -242,22 +229,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Service References\HhaExchange\SearchAPIRest.wsdl" />
-    <None Include="Service References\HhaExchange\SearchAPIRest.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HhaExchange\SearchAPIRest1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HhaExchange\SearchAPIRest2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HhaExchange\SearchAPIRest3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Service References\HhaExchange\WebPhoneApi.HhaExchange.CallerIDLookupResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -277,7 +248,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HhaExchange2\" />
-    <WCFMetadataStorage Include="Service References\HhaExchange\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

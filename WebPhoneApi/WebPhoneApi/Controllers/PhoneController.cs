@@ -91,7 +91,14 @@ namespace TeleGoApi.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Get Extension
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <param name="customerId"></param>
+        /// <param name="callerId"></param>
+        /// <returns></returns>
         public MessageRespone GetExtension(string userName, string password, int customerId, string callerId)
         {
             MessageRespone respone = new MessageRespone();

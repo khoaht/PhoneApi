@@ -32,7 +32,7 @@
         var callerId = $('#txtCallerId').val();
         var customerId = $('#txtCustomerId').val();
         $('#lblResult').val('Waiting...');
-        var url = "https://173.239.12.108/TelegoApi/api/Phone/GetExtension";
+        var url = "api/Phone/GetExtension";
         $.ajax({
             type: 'GET',
             url: url,

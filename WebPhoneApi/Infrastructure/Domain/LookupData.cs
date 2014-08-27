@@ -26,7 +26,26 @@ namespace Infrastructure.Domain
         public List<Service> Services { get; set; }
     }
 
-    public class Service {
+    public class Service
+    {
         public string ServiceName { get; set; }
     }
+
+    public class CallerIDLookup
+    {
+        public Result Result { get; set; }
+        public LookupData LookupData { get; set; }
+    }
+
+    public class Result
+    {
+        public ErrorInfo ErrorInfo { get; set; }
+        public string Status { get; set; }
+    }
+    public class ErrorInfo
+    {
+        public string ErrorID { get; set; }
+        public string ErrorMessage { get; set; }
+    }
 }
+    

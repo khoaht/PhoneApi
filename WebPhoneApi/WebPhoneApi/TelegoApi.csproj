@@ -180,6 +180,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\HhaExchange\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -219,6 +224,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <None Include="Service References\HhaExchange\configuration91.svcinfo" />
+    <None Include="Service References\HhaExchange\configuration.svcinfo" />
+    <None Include="Service References\HhaExchange\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\HhaExchange\SearchAPIRest.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -231,12 +243,27 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Service References\HhaExchange\SearchAPIRest.wsdl" />
+    <None Include="Service References\HhaExchange\SearchAPIRest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HhaExchange\SearchAPIRest1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HhaExchange\SearchAPIRest2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HhaExchange\SearchAPIRest3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -256,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HhaExchange2\" />
+    <WCFMetadataStorage Include="Service References\HhaExchange\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

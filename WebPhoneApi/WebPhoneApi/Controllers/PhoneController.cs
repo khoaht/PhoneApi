@@ -1,6 +1,7 @@
 ﻿using Infrastructure;
 using Infrastructure.Domain;
 using Infrastructure.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,13 +25,24 @@ namespace TeleGoApi.Controllers
         private string filter = string.Empty;
         private readonly IUserService userService;
         private readonly ICustomerCoordinateService customerCoordinateService;
+        private string urlRest = string.Empty;
 
+        public string UrlRest
+        {
+            get {
+                if (String.IsNullOrEmpty(urlRest))
+                {
+                    filter = ConfigurationManager.AppSettings["URLRest"].ToString();
+                }
+                return urlRest; }
+            set { urlRest = value; }
+        }
         public PhoneController(IUserService userService, ICustomerCoordinateService customerCoordinateService)
         {
             this.customerCoordinateService = customerCoordinateService;
             this.userService = userService;
         }
-
+       
 
         public string Filter
         {
@@ -92,6 +104,79 @@ namespace TeleGoApi.Controllers
             }
         }
 
+        private CallerIDLookup ParseXMlToCallerIDLookup(string xml)
+        {
+            CallerIDLookup result = new CallerIDLookup();
+            result.LookupData = new LookupData();
+            if (!String.IsNullOrEmpty(xml))
+            {
+                XDocument doc = XDocument.Parse(xml);
+                if (doc != null && doc.Root != null)
+                {
+                    string nsp =  doc.Root.GetDefaultNamespace()!=null?doc.Root.GetDefaultNamespace().NamespaceName:string.Empty;
+                    XElement root = doc.Root;
+                    //parse Result
+                    XElement eleResult = root.Element(XName.Get("Result", nsp));
+
+                    if (eleResult != null)
+                    {
+                        XElement eleErrorInfo = eleResult.Element(XName.Get("ErrorInfo", nsp));
+                        result.Result = new Result();
+                        if (eleErrorInfo != null)
+                        {
+                            result.Result.ErrorInfo = new ErrorInfo();
+                            string errorId = eleErrorInfo.Element(XName.Get("ErrorID", nsp)) != null ? eleErrorInfo.Element(XName.Get("ErrorID", nsp)).Value : string.Empty;
+                            string errorMessage = eleErrorInfo.Element(XName.Get("ErrorMessage", nsp)) != null ? eleErrorInfo.Element(XName.Get("ErrorMessage", nsp)).Value : string.Empty;
+                            result.Result.ErrorInfo.ErrorID = errorId;
+                            result.Result.ErrorInfo.ErrorMessage = errorMessage;
+                        }
+                        //parse Status
+                        XElement status = eleResult.Element(XName.Get("Status", nsp));
+                        if (status != null)
+                        {
+                            result.Result.Status = status.Value;
+                        }
+                        //LookupData
+                        XElement lookupData = root.Element(XName.Get("LookupData", nsp));
+                        if (lookupData != null)
+                        {
+                            XElement item = lookupData.Element(XName.Get("Item", nsp));
+                            if (item != null)
+                            {
+                                XElement type = item.Element(XName.Get("Type", nsp));
+                                result.LookupData.Type = type != null ? type.Value : string.Empty;
+                                XElement coordinator1 = item.Element(XName.Get("Coordinator1", nsp));
+                                result.LookupData.Coordinator1 = coordinator1 != null ? coordinator1.Value : string.Empty;
+                                XElement Coordinator2 = item.Element(XName.Get("Coordinator2", nsp));
+                                result.LookupData.Coordinator2 = Coordinator2 != null ? Coordinator2.Value : string.Empty;
+                                XElement Coordinator3 = item.Element(XName.Get("Coordinator3", nsp));
+                                result.LookupData.Coordinator3 = Coordinator3 != null ? Coordinator3.Value : string.Empty;
+                                XElement PrimaryContract = item.Element(XName.Get("PrimaryContract", nsp));
+                                result.LookupData.PrimaryContract = PrimaryContract != null ? PrimaryContract.Value : string.Empty;
+                                XElement Branch = item.Element(XName.Get("Branch", nsp));
+                                result.LookupData.Branch = Branch != null ? Branch.Value : string.Empty;
+                                XElement Team = item.Element(XName.Get("Team", nsp));
+                                result.LookupData.Team = Team != null ? Team.Value : string.Empty;
+                                XElement Location = item.Element(XName.Get("Location", nsp));
+                                result.LookupData.Location = Location != null ? Location.Value : string.Empty;
+                                XElement PrimaryLanguage = item.Element(XName.Get("PrimaryLanguage", nsp));
+                                result.LookupData.PrimaryLanguage = PrimaryLanguage != null ? PrimaryLanguage.Value : string.Empty;
+                                XElement Zip = item.Element(XName.Get("Zip", nsp));
+                                result.LookupData.Zip = Zip != null ? Zip.Value : string.Empty;
+                                XElement State = item.Element(XName.Get("State", nsp));
+                                result.LookupData.State = State != null ? State.Value : string.Empty;
+                                XElement City = item.Element(XName.Get("City", nsp));
+                                result.LookupData.City = City != null ? City.Value : string.Empty;
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Get Extension
         /// </summary>
@@ -115,9 +200,16 @@ namespace TeleGoApi.Controllers
             if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) && customerId > 0 && !String.IsNullOrEmpty(callerId))
             {
                 //TODO:
-                //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret
-                WebPhoneApi.HhaExchange2.SearchAPISoapClient clientSoap = new WebPhoneApi.HhaExchange2.SearchAPISoapClient();
-                WebPhoneApi.HhaExchange2.CallerIDLookupResponse restResult = clientSoap.GetCallerDataByCallerID(AppName, AppSecret, AppKey, callerId, Filter);
+                //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret 
+                var getUrl = urlRest + AppName + "/" + AppSecret + "/" + AppKey + "/" + callerId + "/" + Filter;
+                WebClient client = new WebClient();
+                string s = client.DownloadString(getUrl);
+
+                CallerIDLookup restResult = ParseXMlToCallerIDLookup(s);
+
+                //WebPhoneApi.HhaExchange2.SearchAPISoapClient clientSoap = new WebPhoneApi.HhaExchange2.SearchAPISoapClient();
+                //WebPhoneApi.HhaExchange2.CallerIDLookupResponse restResult = clientSoap.GetCallerDataByCallerID(AppName, AppSecret, AppKey, callerId, Filter);
+
 
                 //2. HHAExchange return a Coordinator1 Name
                 if (restResult != null && restResult.Result != null)
@@ -125,16 +217,15 @@ namespace TeleGoApi.Controllers
                     if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Success))
                     {
                         respone.Status = Infrastructure.StatusCode.Success;
-                        foreach (var item in restResult.LookupData)
+                        if(restResult.LookupData!=null )
+                            if (!String.IsNullOrEmpty(restResult.LookupData.Coordinator1))
                         {
-                            if (!String.IsNullOrEmpty(item.Coordinator1))
-                            {
-                                // get extension and coordinator
-                                //3. Query Extension Number of Coordinator in TeleGo DB 
-                                respone.Data = customerCoordinateService.GetExtension(customerId, item.Coordinator1);
-                                
-                            }
+                            // get extension and coordinator
+                            //3. Query Extension Number of Coordinator in TeleGo DB 
+                            respone.Data = customerCoordinateService.GetExtension(customerId, restResult.LookupData.Coordinator1);
+
                         }
+
                     }
                     else if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Failure.ToString()))
                     {

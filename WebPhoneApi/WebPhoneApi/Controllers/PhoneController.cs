@@ -32,7 +32,7 @@ namespace TeleGoApi.Controllers
             get {
                 if (String.IsNullOrEmpty(urlRest))
                 {
-                    filter = ConfigurationManager.AppSettings["URLRest"].ToString();
+                    urlRest = ConfigurationManager.AppSettings["URLRest"].ToString();
                 }
                 return urlRest; }
             set { urlRest = value; }
@@ -201,7 +201,7 @@ namespace TeleGoApi.Controllers
             {
                 //TODO:
                 //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret 
-                var getUrl = urlRest + AppName + "/" + AppSecret + "/" + AppKey + "/" + callerId + "/" + Filter;
+                var getUrl = UrlRest + AppName + "/" + AppSecret + "/" + AppKey + "/" + callerId + "/" + Filter;
                 WebClient client = new WebClient();
                 string s = client.DownloadString(getUrl);
 

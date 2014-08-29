@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <label>CallerId:</label>
-        <input class="form-control" type="tel" id="txtCallerId" value="7187827573" placeholder="Enter callerId"  required />
+        <input class="form-control" type="tel" id="txtCallerId" value="7187827573" placeholder="Enter callerId" required />
     </div>
     <div class="form-group">
         <label>Result-Extension Number:</label>
@@ -25,6 +25,19 @@
     <button class="btn btn-primary btn-large" onclick="GetExtension()">Request</button>
 
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <textarea class="xmlshow"></textarea>
+    </div>
+</div>
+<style>
+    .xmlshow {
+        background-color: #ffffff;
+        width: 100%;
+        display: block;
+        border: none;
+    }
+</style>
 <script>
     function GetExtension() {
         var username = $('#txtUserName').val();
@@ -38,7 +51,8 @@
             url: url,
             data: { username: username, password: password, customerId: customerId, callerId: callerId }
         }).done(function (result) {
-            $('#lblResult').val(result.Data);
+            $('#lblResult').val('');
+            $(".xmlshow").html(result);
         })
     }
 </script>

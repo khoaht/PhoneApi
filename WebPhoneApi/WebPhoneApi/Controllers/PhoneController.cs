@@ -11,7 +11,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace TeleGoApi.Controllers
 {
@@ -29,12 +31,14 @@ namespace TeleGoApi.Controllers
 
         public string UrlRest
         {
-            get {
+            get
+            {
                 if (String.IsNullOrEmpty(urlRest))
                 {
-                    filter = ConfigurationManager.AppSettings["URLRest"].ToString();
+                    urlRest = ConfigurationManager.AppSettings["URLRest"].ToString();
                 }
-                return urlRest; }
+                return urlRest;
+            }
             set { urlRest = value; }
         }
         public PhoneController(IUserService userService, ICustomerCoordinateService customerCoordinateService)
@@ -42,7 +46,7 @@ namespace TeleGoApi.Controllers
             this.customerCoordinateService = customerCoordinateService;
             this.userService = userService;
         }
-       
+
 
         public string Filter
         {
@@ -113,7 +117,7 @@ namespace TeleGoApi.Controllers
                 XDocument doc = XDocument.Parse(xml);
                 if (doc != null && doc.Root != null)
                 {
-                    string nsp =  doc.Root.GetDefaultNamespace()!=null?doc.Root.GetDefaultNamespace().NamespaceName:string.Empty;
+                    string nsp = doc.Root.GetDefaultNamespace() != null ? doc.Root.GetDefaultNamespace().NamespaceName : string.Empty;
                     XElement root = doc.Root;
                     //parse Result
                     XElement eleResult = root.Element(XName.Get("Result", nsp));
@@ -176,6 +180,86 @@ namespace TeleGoApi.Controllers
 
             return result;
         }
+        private string ParseObjectToXml(response res)
+        {
+            //Create our own namespaces for the output
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+            //Add an empty namespace and empty value
+            ns.Add("", "");
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(response));
+
+            XmlDocument doc = new XmlDocument();
+
+            System.IO.StringWriter sww = new System.IO.StringWriter();
+            XmlWriter writer = XmlWriter.Create(sww);
+            xsSubmit.Serialize(writer, res,ns);
+            var xml = sww.ToString(); // Your xml
+
+            return xml;
+        }
+        public string GetExtension(string userName, string password, int customerId, string callerId)
+        {
+            response res = new response();
+            res.result = new result()
+            {
+                ivr_info = new ivr_info()
+                {
+                    variables = new variable[1]
+                }
+            };
+            //check login 
+            bool isLogined = userService.ValidateUser(userName, password);
+            if (!isLogined)
+            {
+                res.Status = Infrastructure.StatusCode.Failure;
+                res.Message = "not authorized";
+                return ParseObjectToXml(res);
+            }
+            if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) && customerId > 0 && !String.IsNullOrEmpty(callerId))
+            {
+                //TODO:
+                //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret 
+                var getUrl = UrlRest + AppName + "/" + AppSecret + "/" + AppKey + "/" + callerId + "/" + Filter;
+                WebClient client = new WebClient();
+                string s = client.DownloadString(getUrl);
+
+                CallerIDLookup restResult = ParseXMlToCallerIDLookup(s);
+
+                //2. HHAExchange return a Coordinator1 Name
+                if (restResult != null && restResult.Result != null)
+                {
+                    if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Success))
+                    {
+                        res.Status = Infrastructure.StatusCode.Success;
+                        if (restResult.LookupData != null)
+                            if (!String.IsNullOrEmpty(restResult.LookupData.Coordinator1))
+                            {
+                                // get extension and coordinator
+                                //3. Query Extension Number of Coordinator in TeleGo DB 
+                                string strvalue = customerCoordinateService.GetExtension(customerId, restResult.LookupData.Coordinator1);
+                                variable varextension = new variable() { name = "extension", value = strvalue };
+                                res.result.ivr_info.variables[0] = varextension;
+                                return ParseObjectToXml(res);
+                            }
+
+                    }
+                    else if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Failure.ToString()))
+                    {
+                        res.Status = Infrastructure.StatusCode.Failure;
+                        res.Message = restResult.Result.ErrorInfo.ErrorMessage;
+                    }
+                }
+
+            }
+            else
+            {
+                res.Status = Infrastructure.StatusCode.Failure;
+                res.Message = "Not enough information";
+            }
+            //4. Return Extension to PBX
+            return ParseObjectToXml(res);
+        }
 
         /// <summary>
         /// Get Extension
@@ -185,65 +269,66 @@ namespace TeleGoApi.Controllers
         /// <param name="customerId"></param>
         /// <param name="callerId"></param>
         /// <returns></returns>
-        public MessageRespone GetExtension(string userName, string password, int customerId, string callerId)
-        {
-            MessageRespone respone = new MessageRespone();
+        #region Comment
+        //public MessageRespone GetExtension(string userName, string password, int customerId, string callerId)
+        //{
+        //    MessageRespone respone = new MessageRespone();
 
-            //check login 
-            bool isLogined = userService.ValidateUser(userName, password);
-            if (!isLogined)
-            {
-                respone.Status = Infrastructure.StatusCode.Failure;
-                respone.Message = "not authorized";
-                return respone;
-            }
-            if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) && customerId > 0 && !String.IsNullOrEmpty(callerId))
-            {
-                //TODO:
-                //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret 
-                var getUrl = urlRest + AppName + "/" + AppSecret + "/" + AppKey + "/" + callerId + "/" + Filter;
-                WebClient client = new WebClient();
-                string s = client.DownloadString(getUrl);
+        //    //check login 
+        //    bool isLogined = userService.ValidateUser(userName, password);
+        //    if (!isLogined)
+        //    {
+        //        respone.Status = Infrastructure.StatusCode.Failure;
+        //        respone.Message = "not authorized";
+        //        return respone;
+        //    }
+        //    if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) && customerId > 0 && !String.IsNullOrEmpty(callerId))
+        //    {
+        //        //TODO:
+        //        //1. Telego call HHAExchange : callerId, appname,AppKey, AppSercret 
+        //        var getUrl = UrlRest + AppName + "/" + AppSecret + "/" + AppKey + "/" + callerId + "/" + Filter;
+        //        WebClient client = new WebClient();
+        //        string s = client.DownloadString(getUrl);
 
-                CallerIDLookup restResult = ParseXMlToCallerIDLookup(s);
+        //        CallerIDLookup restResult = ParseXMlToCallerIDLookup(s);
 
-                //WebPhoneApi.HhaExchange2.SearchAPISoapClient clientSoap = new WebPhoneApi.HhaExchange2.SearchAPISoapClient();
-                //WebPhoneApi.HhaExchange2.CallerIDLookupResponse restResult = clientSoap.GetCallerDataByCallerID(AppName, AppSecret, AppKey, callerId, Filter);
+        //        //WebPhoneApi.HhaExchange2.SearchAPISoapClient clientSoap = new WebPhoneApi.HhaExchange2.SearchAPISoapClient();
+        //        //WebPhoneApi.HhaExchange2.CallerIDLookupResponse restResult = clientSoap.GetCallerDataByCallerID(AppName, AppSecret, AppKey, callerId, Filter);
 
 
-                //2. HHAExchange return a Coordinator1 Name
-                if (restResult != null && restResult.Result != null)
-                {
-                    if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Success))
-                    {
-                        respone.Status = Infrastructure.StatusCode.Success;
-                        if(restResult.LookupData!=null )
-                            if (!String.IsNullOrEmpty(restResult.LookupData.Coordinator1))
-                        {
-                            // get extension and coordinator
-                            //3. Query Extension Number of Coordinator in TeleGo DB 
-                            respone.Data = customerCoordinateService.GetExtension(customerId, restResult.LookupData.Coordinator1);
+        //        //2. HHAExchange return a Coordinator1 Name
+        //        if (restResult != null && restResult.Result != null)
+        //        {
+        //            if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Success))
+        //            {
+        //                respone.Status = Infrastructure.StatusCode.Success;
+        //                if(restResult.LookupData!=null )
+        //                    if (!String.IsNullOrEmpty(restResult.LookupData.Coordinator1))
+        //                {
+        //                    // get extension and coordinator
+        //                    //3. Query Extension Number of Coordinator in TeleGo DB 
+        //                    respone.Data = customerCoordinateService.GetExtension(customerId, restResult.LookupData.Coordinator1);
 
-                        }
+        //                }
 
-                    }
-                    else if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Failure.ToString()))
-                    {
-                        respone.Status = Infrastructure.StatusCode.Failure;
-                        respone.Message = restResult.Result.ErrorInfo.ErrorMessage;
-                    }
-                }
+        //            }
+        //            else if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Failure.ToString()))
+        //            {
+        //                respone.Status = Infrastructure.StatusCode.Failure;
+        //                respone.Message = restResult.Result.ErrorInfo.ErrorMessage;
+        //            }
+        //        }
 
-            }
-            else
-            {
-                respone.Status = Infrastructure.StatusCode.Failure;
-                respone.Message = "Not enough information";
-            }
-            //4. Return Extension to PBX
-            return respone;
-        }
-
+        //    }
+        //    else
+        //    {
+        //        respone.Status = Infrastructure.StatusCode.Failure;
+        //        respone.Message = "Not enough information";
+        //    }
+        //    //4. Return Extension to PBX
+        //    return respone;
+        //}
+        #endregion
 
     }
 }

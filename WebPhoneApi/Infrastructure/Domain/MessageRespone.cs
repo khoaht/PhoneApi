@@ -31,6 +31,7 @@ namespace Infrastructure.Domain
         public ResponseResult data { get; set; }
     }
 
+    [XmlRoot("response")]
     public class ResponseResult
     {
         [XmlElement("ivr_info")]

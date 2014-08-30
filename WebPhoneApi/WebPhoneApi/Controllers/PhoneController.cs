@@ -186,17 +186,17 @@ namespace TeleGoApi.Controllers
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
 
             //Add an empty namespace and empty value
-            ns.Add("", "response");
+            ns.Add("", "");
             XmlSerializer xsSubmit = new XmlSerializer(typeof(Response));
-
-            XmlDocument doc = new XmlDocument();
 
             System.IO.StringWriter sww = new System.IO.StringWriter();
             XmlWriter writer = XmlWriter.Create(sww);
             xsSubmit.Serialize(writer, res, ns);
-            var xml = sww.ToString(); // Your xml
 
-            return xml;
+            var xml = sww.ToString(); // Your xml
+            var index = xml.IndexOf("<response>");
+
+            return xml.Substring(index);
         }
 
         public object GetExtension(string userName, string password, int customerId, string callerId)

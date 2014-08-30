@@ -180,41 +180,43 @@ namespace TeleGoApi.Controllers
 
             return result;
         }
-        private string ParseObjectToXml(response res)
+        private string ParseObjectToXml(Response res)
         {
             //Create our own namespaces for the output
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
 
             //Add an empty namespace and empty value
-            ns.Add("", "");
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(response));
+            ns.Add("", "response");
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(Response));
 
             XmlDocument doc = new XmlDocument();
 
             System.IO.StringWriter sww = new System.IO.StringWriter();
             XmlWriter writer = XmlWriter.Create(sww);
-            xsSubmit.Serialize(writer, res,ns);
+            xsSubmit.Serialize(writer, res, ns);
             var xml = sww.ToString(); // Your xml
 
             return xml;
         }
-        public string GetExtension(string userName, string password, int customerId, string callerId)
+
+        public object GetExtension(string userName, string password, int customerId, string callerId)
         {
-            response res = new response();
-            res.result = new result()
+            var res = new Response()
             {
-                ivr_info = new ivr_info()
+                data = new ResponseResult()
                 {
-                    variables = new variable[1]
+                    ivr_info = new ivr_info()
+                    {
+                        variables = new variable[1]
+                    }
                 }
+
             };
             //check login 
             bool isLogined = userService.ValidateUser(userName, password);
             if (!isLogined)
             {
-                res.Status = Infrastructure.StatusCode.Failure;
-                res.Message = "not authorized";
-                return ParseObjectToXml(res);
+                return "not authorized";
             }
             if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) && customerId > 0 && !String.IsNullOrEmpty(callerId))
             {
@@ -231,7 +233,7 @@ namespace TeleGoApi.Controllers
                 {
                     if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Success))
                     {
-                        res.Status = Infrastructure.StatusCode.Success;
+
                         if (restResult.LookupData != null)
                             if (!String.IsNullOrEmpty(restResult.LookupData.Coordinator1))
                             {
@@ -239,26 +241,25 @@ namespace TeleGoApi.Controllers
                                 //3. Query Extension Number of Coordinator in TeleGo DB 
                                 string strvalue = customerCoordinateService.GetExtension(customerId, restResult.LookupData.Coordinator1);
                                 variable varextension = new variable() { name = "extension", value = strvalue };
-                                res.result.ivr_info.variables[0] = varextension;
+                                res.data.ivr_info.variables[0] = varextension;
                                 return ParseObjectToXml(res);
+                                //return res;
                             }
 
                     }
                     else if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Failure.ToString()))
                     {
-                        res.Status = Infrastructure.StatusCode.Failure;
-                        res.Message = restResult.Result.ErrorInfo.ErrorMessage;
+                        return restResult.Result.ErrorInfo.ErrorMessage;
                     }
                 }
 
             }
             else
             {
-                res.Status = Infrastructure.StatusCode.Failure;
-                res.Message = "Not enough information";
+                return "Not enough information";
             }
             //4. Return Extension to PBX
-            return ParseObjectToXml(res);
+            return res;
         }
 
         /// <summary>

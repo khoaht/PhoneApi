@@ -14,18 +14,24 @@ namespace Infrastructure.Domain
         public string Data { get; set; }
     }
 
+    //[XmlRoot("response")]
+    //public class response
+    //{
+    //    [XmlElement("result")]
+    //    public Response result { get; set; }
+    //    [XmlElement("Status")]
+    //    public string Status { get; set; }
+    //    [XmlElement("Message")]
+    //    public string Message { get; set; }
+    //}
     [XmlRoot("response")]
-    public class response
+    public class Response
     {
         [XmlElement("result")]
-        public result result { get; set; }
-        [XmlElement("Status")]
-        public string Status { get; set; }
-        [XmlElement("Message")]
-        public string Message { get; set; }
+        public ResponseResult data { get; set; }
     }
-    [XmlRoot("result")]
-    public class result
+
+    public class ResponseResult
     {
         [XmlElement("ivr_info")]
         public ivr_info ivr_info { get; set; }

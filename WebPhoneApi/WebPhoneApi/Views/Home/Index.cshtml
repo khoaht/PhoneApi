@@ -46,6 +46,7 @@
         var customerId = $('#txtCustomerId').val();
         $('#lblResult').val('Waiting...');
         var url = "api/Phone/GetExtension";
+        //var url = "https://173.239.12.108/TeleGoApi/api/Phone/GetExtension";
         $.ajax({
             type: 'GET',
             url: url,

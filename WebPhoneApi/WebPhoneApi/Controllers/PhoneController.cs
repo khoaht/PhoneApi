@@ -180,30 +180,30 @@ namespace TeleGoApi.Controllers
 
             return result;
         }
-        private string ParseObjectToXml(Response res)
+        private string ParseObjectToXml(response res)
         {
             //Create our own namespaces for the output
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
 
             //Add an empty namespace and empty value
-            ns.Add("", "");
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(Response));
+            ns.Add(string.Empty, string.Empty);
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(response));
+            XmlSerializer deserializer = new XmlSerializer(typeof(response), "ABC");
 
             System.IO.StringWriter sww = new System.IO.StringWriter();
             XmlWriter writer = XmlWriter.Create(sww);
-            xsSubmit.Serialize(writer, res, ns);
+            deserializer.Serialize(writer, res, ns);
 
             var xml = sww.ToString(); // Your xml
-            var index = xml.IndexOf("<response>");
+            var index = xml.IndexOf("<response");
 
             return xml.Substring(index);
         }
-
-        public object GetExtension(string userName, string password, int customerId, string callerId)
+        public response GetExtension(string userName, string password, int customerId, string callerId)
         {
-            var res = new Response()
+            var res = new response()
             {
-                data = new ResponseResult()
+                result = new ResponseResult()
                 {
                     ivr_info = new ivr_info()
                     {
@@ -216,7 +216,7 @@ namespace TeleGoApi.Controllers
             bool isLogined = userService.ValidateUser(userName, password);
             if (!isLogined)
             {
-                return "not authorized";
+                return res;
             }
             if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password) && customerId > 0 && !String.IsNullOrEmpty(callerId))
             {
@@ -241,22 +241,23 @@ namespace TeleGoApi.Controllers
                                 //3. Query Extension Number of Coordinator in TeleGo DB 
                                 string strvalue = customerCoordinateService.GetExtension(customerId, restResult.LookupData.Coordinator1);
                                 variable varextension = new variable() { name = "extension", value = strvalue };
-                                res.data.ivr_info.variables[0] = varextension;
-                                return ParseObjectToXml(res);
-                                //return res;
+                                res.result.ivr_info.variables[0] = varextension;
+                                //return ParseObjectToXml(res);
+
+                                return res;
                             }
 
                     }
                     else if (restResult.Result.Status.Equals(Infrastructure.StatusCode.Failure.ToString()))
                     {
-                        return restResult.Result.ErrorInfo.ErrorMessage;
+                        return default(response);
                     }
                 }
 
             }
             else
             {
-                return "Not enough information";
+                return default(response);
             }
             //4. Return Extension to PBX
             return res;

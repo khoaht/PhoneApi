@@ -24,11 +24,11 @@ namespace Infrastructure.Domain
     //    [XmlElement("Message")]
     //    public string Message { get; set; }
     //}
-    [XmlRoot("response")]
-    public class Response
+    [XmlRoot(ElementName = "response", Namespace = "")]
+    public class response
     {
         [XmlElement("result")]
-        public ResponseResult data { get; set; }
+        public ResponseResult result { get; set; }
     }
 
     [XmlRoot("response")]
